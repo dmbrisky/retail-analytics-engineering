@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: stg_order_items
+    description: "Staged Olist order item data at one row per order item within an order"
+
+    columns:
+      - name: order_id
+        data_tests:
+          - not_null
+
+      - name: order_item_id
+        data_tests:
+          - not_null
+
+      - name: order_item_key
+        data_tests:
+          - unique
+          - not_null

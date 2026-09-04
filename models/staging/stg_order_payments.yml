@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: stg_order_payments
+    description: "Staged Olist order payment data at one row per order payment within an order"
+
+    columns:
+      - name: order_id
+        data_tests:
+          - not_null
+
+      - name: payment_sequential
+        data_tests:
+          - not_null
+
+      - name: order_payment_key
+        data_tests:
+          - unique
+          - not_null
+
+      - name: payment_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - credit_card
+                  - boleto
+                  - voucher
+                  - debit_card
+                  - not_defined

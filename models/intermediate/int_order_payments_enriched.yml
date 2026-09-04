@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: int_order_payments_enriched
+    description: "Order payment data enriched with total payment value and payment count"
+
+    columns:
+      - name: order_id
+        description: "Indentifier for the order containing the item"
+        data_tests:
+          - unique
+          - not_null
+

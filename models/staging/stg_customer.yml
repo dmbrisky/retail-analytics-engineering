@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Staged Olist customer data at one row per customer id"
+
+    columns:
+      - name: customer_id
+        description: "The primary key for this table."
+        data_tests:
+          - unique
+          - not_null
+        
+      - name: customer_unique_id
+        data_tests:
+          - not_null
+    
+
+      

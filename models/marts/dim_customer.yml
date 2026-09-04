@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: dim_customer
+    description: "Customer dimension at one row per unique customer, including latest known lcoation and order history."
+
+    columns:
+      - name: customer_unique_id
+        description: "Unique indentifier for the customer."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: customer_city
+        description: "Customer's lateest known city."
+
+      - name: customer_state
+        description: "Customer's lateest known state."
+        
+      - name: customer_zip_code_prefix
+        description: "Customer's lateest known zip code prefix."
+
+      - name: first_order_date
+        description: "Date of customer's first order."
+        data_tests:
+          - not_null
+
+      - name: last_order_date
+        description: "Date of the customer's most recent order."
+        data_tests:
+          - not_null
+
+      - name: number_of_orders
+        description: "Number of orders placed by the customer."
+        data_tests:
+          - not_null
+
+

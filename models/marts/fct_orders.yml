@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: fct_orders
+    description: "Order fact at one row per unique order, including customer, order status, payment value, payment measures, and a flag for missing payment."
+
+    columns:
+      - name: order_id
+        description: "Unique identifier for the order."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: customer_unique_id
+        description: "Unique identifier for the customer who placed the order."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: customer_unique_id
+
+      - name: order_purchase_timestamp
+        description: "Timestamp when the order was placed."
+        data_tests:
+          - not_null
+      
+      - name: order_status
+        description: "Current status of the order."
+        data_tests:
+          - not_null
+        
+      - name: total_payment_value
+        description: "Total payment value associated with the order."
+
+      - name: payment_count
+        description: "Number of payment records associated with the order."
+    
+      - name: missing_payment_flag
+        description: "Indicates whether the order is missing payment information."
+        data_tests:
+          - not_null

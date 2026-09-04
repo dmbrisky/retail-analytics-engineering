@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: int_order_items_enriched
+    description: "Order item data enriched with product attributes at one row per order item within an order"
+
+    columns:
+      - name: order_id
+        description: "Indentifier for the order containing the item"
+        data_tests:
+          - not_null
+
+
+      - name: order_item_id
+        description: "Sequential identifier for the item within an order."
+        data_tests:
+          - not_null
+
+      - name: order_item_key
+        description: "Unique row identifier derived from order_id and order_item_id."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: product_id
+        description: "Identifier for the product associated with the order item."
+        data_tests:
+          - not_null

@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: dim_product
+    description: "Product dimension at one row per unique product, including product category name and physical dimensions"
+
+    columns:
+      - name: product_id
+        description: "Unique identifier for the product."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: product_category_name
+        description: "Product's categorys name."
+
+      - name: product_weight_g
+        description: "Product's physical weight in grams."
+        
+      - name: product_length_cm
+        description: "Product's physical length in centimeters."
+
+      - name: product_height_cm
+        description: "Product's physical height in centimeters."
+    
+      - name: product_width_cm
+        description: "Product's physical width in centimeters."
