@@ -24,6 +24,9 @@ models:
         description: "Timestamp when the order was placed."
         data_tests:
           - not_null
+
+      - name: order_date
+        description: "Date when the order was placed."
       
       - name: order_status
         description: "Current status of the order."

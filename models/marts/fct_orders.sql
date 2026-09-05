@@ -6,6 +6,7 @@ select
     o.order_status,
     op.total_payment_value,
     op.payment_count,
+
     {{ payment_status_flag('op.total_payment_value') }} as missing_payment_flag
  
 from {{ ref('stg_orders') }} o
