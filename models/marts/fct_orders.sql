@@ -7,10 +7,7 @@ select
     op.total_payment_value,
     op.payment_count,
 
-    case
-        when op.total_payment_value is null then true
-        else false
-    end as payment_missing_flag 
+    {{ payment_status_flag('op.total_payment_value') }} as missing_payment_flag
  
 from {{ ref('stg_orders') }} o
 
