@@ -1,0 +1,28 @@
+name: dbt CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate-dbt:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dbt
+        run: pip install dbt-core==1.12.3 dbt-duckdb==1.11.0
+
+      - name: Install dbt packages
+        run: dbt deps --profiles-dir .github/ci
+
+      - name: Parse dbt project
+        run: dbt parse --profiles-dir .github/ci
