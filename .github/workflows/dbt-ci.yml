@@ -22,7 +22,9 @@ jobs:
         run: pip install dbt-core==1.12.3 dbt-duckdb==1.11.0
 
       - name: Install dbt packages
-        run: dbt deps --profiles-dir .github/ci
+        working-directory: retail_analytics
+        run: dbt deps --profiles-dir ../.github/ci
 
       - name: Parse dbt project
-        run: dbt parse --profiles-dir .github/ci
+        working-directory: retail_analytics
+        run: dbt parse --profiles-dir ../.github/ci
