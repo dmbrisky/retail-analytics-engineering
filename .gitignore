@@ -6,4 +6,6 @@ dev.duckdb
 *.duckdb
 .venv/
 __pycache__/
-data/raw/
+retail_analytics/data/raw/
+ingestion/*_raw.json
+.github/ci/.user.yml
