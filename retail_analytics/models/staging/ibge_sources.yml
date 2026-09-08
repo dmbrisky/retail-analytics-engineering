@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: ibge
+    database: RAW
+    schema: IBGE
+
+    tables:
+      - name: states_raw

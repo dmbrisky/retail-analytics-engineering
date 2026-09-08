@@ -1,10 +1,47 @@
+
+
+
+
 # Import Python's built-in JSON library.
 # We use this to write the API response to a JSON file.
 import json
+import os
 
 # Import the requests library.
 # This allows Python to make HTTP requests to REST APIs.
 import requests
+import snowflake.connector
+from dotenv import load_dotenv
+
+load_dotenv()
+conn = snowflake.connector.connect(
+    account=os.getenv("SNOWFLAKE_ACCOUNT"),
+    user=os.getenv("SNOWFLAKE_USER"),
+    password=os.getenv("SNOWFLAKE_PASSWORD"),
+    warehouse=os.getenv("SNOWFLAKE_WAREHOUSE"),
+    database=os.getenv("SNOWFLAKE_DATABASE"),
+    schema=os.getenv("SNOWFLAKE_SCHEMA")
+)
+
+print("Connected to Snowflake successfully.")
+
+cursor = conn.cursor()
+
+ # Insert that API response into RAW.IBGE in Snowflake.
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS STATES_RAW (
+    load_timestamp TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
+    payload VARIANT
+)
+""")
+
+print("Snowflake raw table is ready.")
+
+
+
+cursor.execute("TRUNCATE TABLE STATES_RAW")
+
+print("Existing Snowflake state records cleared.")
 
 
 # Store the API endpoint in a variable.
@@ -59,3 +96,12 @@ with open("ibge_states_raw.json", "w", encoding="utf-8") as file:
 
 # Print a confirmation after the JSON file has been successfully written.
 print("Raw IBGE data saved successfully.")
+
+# Load each state record into the Snowflake raw table.
+for state in data:
+    cursor.execute(
+        "INSERT INTO STATES_RAW (payload) SELECT PARSE_JSON(%s)",
+        (json.dumps(state),)
+    )
+
+print(f"Loaded {len(data)} state records into Snowflake.")
